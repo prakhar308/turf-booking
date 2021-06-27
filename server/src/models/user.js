@@ -37,7 +37,15 @@ const userSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Booking'
 		}
-	]
+	],
+	isAdmin: {
+		type: Boolean,
+		default: false
+	},
+	turf_owned: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Turf'
+	}
 });
 
 userSchema.methods.toJSON = function () {

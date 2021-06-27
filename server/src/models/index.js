@@ -8,5 +8,7 @@ mongoose.connect(process.env.MONGODB_URL, {
 });
 
 module.exports = {
-  User: require("./user")
+  User: require('./user'),
+  Booking: require('./booking'),
+  Turf: require('./turf')
 };
