@@ -35,7 +35,7 @@ const turfSchema = new mongoose.Schema({
 			ref: 'Booking'
 		}
   ],
-  turf_owner: {
+  turfOwner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }

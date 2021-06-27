@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false
 	},
-	turf_owned: {
+	turfOwned: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Turf'
 	}
