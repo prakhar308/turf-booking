@@ -15,7 +15,7 @@ exports.createBooking = async (req, res) => {
     }
 
     const newBooking = req.body;
-    newBooking.user = req.user._id;
+    newBooking.user = req.user.id;
     const booking = new db.Booking(newBooking);
     await booking.save();
 
