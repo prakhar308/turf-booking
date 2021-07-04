@@ -15,11 +15,8 @@ const bookingSchema = new mongoose.Schema({
     required: true
   },
   user: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    name: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   bookingStatus: {
     type: String,
@@ -27,8 +24,7 @@ const bookingSchema = new mongoose.Schema({
   },
   turf: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Turf',
-    required: true
+    ref: 'Turf'
   }
 });
 

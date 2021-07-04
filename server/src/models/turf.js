@@ -29,12 +29,6 @@ const turfSchema = new mongoose.Schema({
       }
     }
   ],
-  bookings: [
-    {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Booking'
-		}
-  ],
   turfOwner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

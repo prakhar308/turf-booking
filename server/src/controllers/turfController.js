@@ -17,6 +17,16 @@ exports.createTurf = async (req, res) => {
   }
 }
 
+exports.getTurf = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const turf = await db.Turf.findById(id);
+    res.status(200).send(turf);
+  } catch (err) {
+    res.status(500).send({ message: "Cannot find turf" });
+  }
+}
+
 exports.getTurfs = async (req, res) => {
   try {
     const turfs = await db.Turf.find();

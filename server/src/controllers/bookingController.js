@@ -2,34 +2,34 @@ const db = require("../models");
 
 exports.createBooking = async (req, res) => {
   try {
-    const newBooking = req.body;
-    newBooking.user = {
-      id: req.user._id,
-      name: req.user.name
+    const { startTime, endTime, turf } = req.body;
+    // check if booking already exists
+    const existingBooking = await db.Booking.find({
+      $and: [
+        { turf },
+        { $or: [{ startTime }, { endTime }] }
+      ]
+    });
+    if (existingBooking.length > 0) {
+      return res.status(409).send({ message: "Cannot create booking. Slot is already booked." });
     }
+
+    const newBooking = req.body;
+    newBooking.user = req.user._id;
     const booking = new db.Booking(newBooking);
     await booking.save();
 
-    // add booking in user and turf bookings
-    req.user.bookings.push(booking.id);
-    await req.user.save(); 
-
-    const turf = await db.Turf.findById(booking.turf);
-    turf.bookings.push(booking.id);
-    await turf.save();
-    
     res.status(201).send(booking);
   } catch (err) {
-    res.status(500).send({message : err.message});
+    res.status(500).send({ message: err.message });
   }
 }
 
 exports.getBookings = async (req, res) => {
   try {
-    await req.user.populate('bookings').execPopulate();
-    res.status(200).send(req.user.bookings);
-  }
-  catch (err) {
+    const bookings = await db.Booking.find().populate('turf', 'name').exec();
+    res.status(200).send(bookings);
+  } catch (err) {
     res.status(500).send({ message: "Cannot find bookings" });
   }
 }
