@@ -8,4 +8,8 @@ router.route('/')
   .post(bookingController.createBooking)
   .get(bookingController.getBookings);
 
+router.route('/:id')
+  .all(auth)
+  .put(bookingController.updateBooking);
+
 module.exports = router;
